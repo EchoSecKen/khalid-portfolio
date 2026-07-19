@@ -354,14 +354,16 @@
   .cert-card:hover{ border-color:var(--green-dim); transform:translateY(-3px); }
   .cert-top{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px; }
   .cert-icon{
-    width:38px; height:38px;
+    width:42px; height:42px;
+    background:#fff;
     border:1px solid var(--green-dim);
-    border-radius:6px;
+    border-radius:8px;
     display:flex; align-items:center; justify-content:center;
-    color:var(--green);
     flex-shrink:0;
+    padding:7px;
   }
-  .cert-icon svg{ width:18px; height:18px; }
+  .cert-icon img{ width:100%; height:100%; object-fit:contain; }
+  .cert-card .expiry{ color:var(--text-faint); }
   .cert-badge-status{
     font-family:var(--mono-disp);
     font-size:9.5px;
@@ -661,42 +663,112 @@
     <div class="cert-grid reveal">
       <div class="cert-card">
         <div class="cert-top">
-          <div class="cert-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg></div>
+          <div class="cert-icon"><img src="assets/icons/google.png" alt="Google logo"></div>
           <span class="cert-badge-status">verified</span>
         </div>
-        <h3>CompTIA Security+</h3>
-        <div class="issuer">CompTIA · Placeholder Year</div>
-        <div class="cert-meta"><span>ID: XXXX-XXXX</span><a href="#" class="verify">Verify →</a></div>
+        <h3>Google Cybersecurity Specialization</h3>
+        <div class="issuer">Google · Issued Jan 2025</div>
+        <div class="cert-meta"><span class="expiry">No expiration</span><a href="https://www.coursera.org/account/accomplishments/specialization/DV9I22SUCNY7" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
 
       <div class="cert-card">
         <div class="cert-top">
-          <div class="cert-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg></div>
+          <div class="cert-icon"><img src="assets/icons/comptia.png" alt="CompTIA logo"></div>
           <span class="cert-badge-status">verified</span>
         </div>
-        <h3>Certified Ethical Hacker (CEH)</h3>
-        <div class="issuer">EC-Council · Placeholder Year</div>
-        <div class="cert-meta"><span>ID: XXXX-XXXX</span><a href="#" class="verify">Verify →</a></div>
+        <h3>CompTIA Network+ ce Certification</h3>
+        <div class="issuer">CompTIA · Issued Feb 2025</div>
+        <div class="cert-meta"><span class="expiry">Expires Feb 2028</span><a href="https://www.credly.com/badges/5f1b95e5-5397-4b13-b470-01e96629c20c/linked_in_profile" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
 
       <div class="cert-card">
         <div class="cert-top">
-          <div class="cert-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg></div>
+          <div class="cert-icon"><img src="assets/icons/comptia.png" alt="CompTIA logo"></div>
           <span class="cert-badge-status">verified</span>
         </div>
-        <h3>CompTIA Network+</h3>
-        <div class="issuer">CompTIA · Placeholder Year</div>
-        <div class="cert-meta"><span>ID: XXXX-XXXX</span><a href="#" class="verify">Verify →</a></div>
+        <h3>CompTIA Security+ ce Certification</h3>
+        <div class="issuer">CompTIA · Issued Apr 2025</div>
+        <div class="cert-meta"><span class="expiry">Expires Apr 2028</span><a href="https://www.credly.com/badges/18bf162e-29c4-4ec6-86f3-42289c1e6d0e/linked_in_profile" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
 
       <div class="cert-card">
         <div class="cert-top">
-          <div class="cert-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg></div>
+          <div class="cert-icon"><img src="assets/icons/microsoft.png" alt="Microsoft logo"></div>
           <span class="cert-badge-status">verified</span>
         </div>
-        <h3>Introduction to Cyber Security</h3>
-        <div class="issuer">TryHackMe · Placeholder Year</div>
-        <div class="cert-meta"><span>ID: XXXX-XXXX</span><a href="#" class="verify">Verify →</a></div>
+        <h3>Microsoft Certified: Azure Fundamentals</h3>
+        <div class="issuer">Microsoft · Issued Jun 2025</div>
+        <div class="cert-meta"><span class="expiry">No expiration</span><a href="https://learn.microsoft.com/en-us/users/khalidabess-8986/credentials/aefff588ad8598f9?ref=https%3A%2F%2Fwww.linkedin.com%2F" target="_blank" rel="noopener" class="verify">Verify →</a></div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-top">
+          <div class="cert-icon"><img src="assets/icons/google.png" alt="Google logo"></div>
+          <span class="cert-badge-status">verified</span>
+        </div>
+        <h3>Google IT Support Specialization</h3>
+        <div class="issuer">Google · Issued Jun 2025</div>
+        <div class="cert-meta"><span class="expiry">No expiration</span><a href="https://www.coursera.org/account/accomplishments/specialization/WABHMC5IF5NF" target="_blank" rel="noopener" class="verify">Verify →</a></div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-top">
+          <div class="cert-icon"><img src="assets/icons/tcm-security.png" alt="TCM Security logo"></div>
+          <span class="cert-badge-status">verified</span>
+        </div>
+        <h3>Practical Help Desk Associate</h3>
+        <div class="issuer">TCM Security · Issued Jul 2025</div>
+        <div class="cert-meta"><span class="expiry">No expiration</span><a href="https://certified.tcm-sec.com/f620adb2-5c60-4ec2-8339-8fbf4e1e9300#acc.kl1GgI32" target="_blank" rel="noopener" class="verify">Verify →</a></div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-top">
+          <div class="cert-icon"><img src="assets/icons/tcm-security.png" alt="TCM Security logo"></div>
+          <span class="cert-badge-status">verified</span>
+        </div>
+        <h3>Practical AI Pentest Associate</h3>
+        <div class="issuer">TCM Security · Issued Dec 2025</div>
+        <div class="cert-meta"><span class="expiry">No expiration</span><a href="https://certified.tcm-sec.com/0b740103-684f-457b-8206-5194bf7b712d#acc.19gG87vh" target="_blank" rel="noopener" class="verify">Verify →</a></div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-top">
+          <div class="cert-icon"><img src="assets/icons/tcm-security.png" alt="TCM Security logo"></div>
+          <span class="cert-badge-status">verified</span>
+        </div>
+        <h3>Practical SOC Analyst Associate</h3>
+        <div class="issuer">TCM Security · Issued Feb 2026</div>
+        <div class="cert-meta"><span class="expiry">No expiration</span><a href="https://certified.tcm-sec.com/038b8da9-4ca3-4da4-ad12-a58df8c8c55a#acc.3UtXGFkV" target="_blank" rel="noopener" class="verify">Verify →</a></div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-top">
+          <div class="cert-icon"><img src="assets/icons/tryhackme.png" alt="TryHackMe logo"></div>
+          <span class="cert-badge-status">verified</span>
+        </div>
+        <h3>Security Analyst (SAL1) Certificate</h3>
+        <div class="issuer">TryHackMe · Issued Jan 2026</div>
+        <div class="cert-meta"><span class="expiry">Expires Feb 2029</span><a href="https://www.credly.com/badges/1295f712-3064-4df8-a440-c2c11673c95f" target="_blank" rel="noopener" class="verify">Verify →</a></div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-top">
+          <div class="cert-icon"><img src="assets/icons/microsoft.png" alt="Microsoft logo"></div>
+          <span class="cert-badge-status">verified</span>
+        </div>
+        <h3>Microsoft Certified: Security Operations Analyst Associate</h3>
+        <div class="issuer">Microsoft · Issued Mar 2026</div>
+        <div class="cert-meta"><span class="expiry">Expires Apr 2027</span><a href="https://learn.microsoft.com/en-us/users/khalidabess-8986/credentials/bfb15a53d4a2c1ea?ref=https%3A%2F%2Fwww.linkedin.com%2F" target="_blank" rel="noopener" class="verify">Verify →</a></div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-top">
+          <div class="cert-icon"><img src="assets/icons/comptia.png" alt="CompTIA logo"></div>
+          <span class="cert-badge-status">verified</span>
+        </div>
+        <h3>CompTIA CySA+ ce Certification</h3>
+        <div class="issuer">CompTIA · Issued May 2026</div>
+        <div class="cert-meta"><span class="expiry">Expires May 2029</span><a href="https://www.credly.com/badges/6f82fe36-c027-4a51-954e-3e376830ce44/linked_in_profile" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
     </div>
   </div>
