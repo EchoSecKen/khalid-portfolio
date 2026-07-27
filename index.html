@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dr. Khalid Abess | Doctor &amp; Ethical Hacker</title>
-<meta name="description" content="Portfolio of Dr. Khalid Abess: doctor, ethical hacker, and builder of security tooling.">
+<title>Dr. Khalid Abess | Physician &amp; Penetration Tester</title>
+<meta name="description" content="Portfolio of Dr. Khalid Abess: physician, penetration tester, and builder of security tooling.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%2339ff14%22>&gt;_</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -338,6 +338,35 @@
   }
 
   /* ---------- CERTS ---------- */
+  .cert-filter-bar{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:28px;
+  }
+  .filter-btn{
+    font-family:var(--mono-disp);
+    font-size:12px;
+    letter-spacing:.03em;
+    color:var(--text-dim);
+    background:var(--panel);
+    border:1px solid var(--line);
+    padding:9px 16px;
+    border-radius:20px;
+    cursor:pointer;
+    transition:color .15s ease, border-color .15s ease, background .15s ease;
+  }
+  .filter-btn::before{ content:"--"; color:var(--text-faint); }
+  .filter-btn:hover{ color:var(--text); border-color:var(--green-dim); }
+  .filter-btn.active{
+    color:var(--void);
+    background:var(--green);
+    border-color:var(--green);
+    font-weight:700;
+  }
+  .filter-btn.active::before{ color:var(--void); opacity:.6; }
+  .cert-card.hidden{ display:none; }
+
   .cert-grid{
     display:grid;
     grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
@@ -613,12 +642,12 @@
 
     <div class="about-grid">
       <div class="about-text reveal">
-        <p>I'm a medical doctor who fell into cybersecurity around my fourth year of med school, and never really climbed back out. It started as something to unwind with, a fun hobby on the side of a demanding degree, and turned into a parallel track I took seriously enough to build up a dozen industry certifications alongside my clinical training. My focus today is <strong>cloud security</strong>.</p>
-        <p>I like understanding cloud environments well enough to break them: an overly permissive IAM policy, an exposed storage bucket, a misconfigured security group that never should have shipped. I use that same understanding to help teams lock things down before someone else finds the gap first. Medicine trained me to work a problem down to its root cause methodically, without skipping steps, and that habit shows up in how I approach a cloud assessment just as much as it does in how I approach a diagnosis.</p>
+        <p>I'm a medical doctor who fell into cybersecurity around my fourth year of med school, and never really climbed back out. It started as something to unwind with, a fun hobby on the side of a demanding degree, and turned into a parallel track I took seriously enough to build up a dozen industry certifications alongside my clinical training. My focus today is <strong>application security</strong> and <strong>cloud security</strong>.</p>
+        <p>I like understanding a system well enough to break it: an overly permissive IAM policy, an exposed storage bucket, an input field that trusts the user a little too much. I use that same understanding to help teams lock things down before someone else finds the gap first. Medicine trained me to work a problem down to its root cause methodically, without skipping steps, and that habit shows up in how I approach a security assessment just as much as it does in how I approach a diagnosis.</p>
 
         <div class="about-facts">
           <div class="fact"><div class="k">Location</div><div class="v">Algeria, Guelma</div></div>
-          <div class="fact"><div class="k">Focus</div><div class="v">Cloud Security</div></div>
+          <div class="fact"><div class="k">Focus</div><div class="v">AppSec &amp; Cloud Security</div></div>
           <div class="fact"><div class="k">Status</div><div class="v">Open to work</div></div>
           <div class="fact"><div class="k">Experience</div><div class="v">2+ years</div></div>
         </div>
@@ -631,8 +660,8 @@
           <div class="skill-track"><div class="skill-fill" data-pct="90"></div></div>
         </div>
         <div class="skill">
-          <div class="skill-top"><span class="name">Web App Security</span><span class="pct">85%</span></div>
-          <div class="skill-track"><div class="skill-fill" data-pct="85"></div></div>
+          <div class="skill-top"><span class="name">Web App Security</span><span class="pct">95%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-pct="95"></div></div>
         </div>
         <div class="skill">
           <div class="skill-top"><span class="name">Penetration Testing</span><span class="pct">90%</span></div>
@@ -655,8 +684,16 @@
       <h2 class="section-title">Certifications <span class="dim">// 02</span></h2>
     </div>
 
-    <div class="cert-grid reveal">
-      <div class="cert-card">
+    <div class="cert-filter-bar reveal" id="cert-filter-bar" role="group" aria-label="Filter certifications by subfield">
+      <button class="filter-btn active" data-filter="all" type="button">all</button>
+      <button class="filter-btn" data-filter="cyber-cloud" type="button">cloud</button>
+      <button class="filter-btn" data-filter="cyber-soc" type="button">soc &amp; blue team</button>
+      <button class="filter-btn" data-filter="cyber-pentest" type="button">pentest &amp; red team</button>
+      <button class="filter-btn" data-filter="cyber-foundations" type="button">foundations</button>
+    </div>
+
+    <div class="cert-grid reveal" id="cert-grid">
+      <div class="cert-card" data-category="cyber-soc">
         <div class="cert-top">
           <div class="cert-icon"><img src="assets/icons/comptia.png" alt="CompTIA logo"></div>
           <span class="cert-badge-status">verified</span>
@@ -666,7 +703,7 @@
         <div class="cert-meta"><span class="expiry">Expires May 2029</span><a href="https://www.credly.com/badges/6f82fe36-c027-4a51-954e-3e376830ce44/linked_in_profile" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
 
-      <div class="cert-card">
+      <div class="cert-card" data-category="cyber-cloud">
         <div class="cert-top">
           <div class="cert-icon"><img src="assets/icons/microsoft.png" alt="Microsoft logo"></div>
           <span class="cert-badge-status">verified</span>
@@ -676,7 +713,7 @@
         <div class="cert-meta"><span class="expiry">Expires Apr 2027</span><a href="https://learn.microsoft.com/en-us/users/khalidabess-8986/credentials/bfb15a53d4a2c1ea?ref=https%3A%2F%2Fwww.linkedin.com%2F" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
 
-      <div class="cert-card">
+      <div class="cert-card" data-category="cyber-soc">
         <div class="cert-top">
           <div class="cert-icon"><img src="assets/icons/tryhackme.png" alt="TryHackMe logo"></div>
           <span class="cert-badge-status">verified</span>
@@ -686,7 +723,7 @@
         <div class="cert-meta"><span class="expiry">Expires Feb 2029</span><a href="https://www.credly.com/badges/1295f712-3064-4df8-a440-c2c11673c95f" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
 
-      <div class="cert-card">
+      <div class="cert-card" data-category="cyber-soc">
         <div class="cert-top">
           <div class="cert-icon"><img src="assets/icons/tcm-security.png" alt="TCM Security logo"></div>
           <span class="cert-badge-status">verified</span>
@@ -696,7 +733,7 @@
         <div class="cert-meta"><span class="expiry">No expiration</span><a href="https://certified.tcm-sec.com/038b8da9-4ca3-4da4-ad12-a58df8c8c55a#acc.3UtXGFkV" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
 
-      <div class="cert-card">
+      <div class="cert-card" data-category="cyber-pentest">
         <div class="cert-top">
           <div class="cert-icon"><img src="assets/icons/tcm-security.png" alt="TCM Security logo"></div>
           <span class="cert-badge-status">verified</span>
@@ -706,7 +743,7 @@
         <div class="cert-meta"><span class="expiry">No expiration</span><a href="https://certified.tcm-sec.com/0b740103-684f-457b-8206-5194bf7b712d#acc.19gG87vh" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
 
-      <div class="cert-card">
+      <div class="cert-card" data-category="cyber-foundations">
         <div class="cert-top">
           <div class="cert-icon"><img src="assets/icons/comptia.png" alt="CompTIA logo"></div>
           <span class="cert-badge-status">verified</span>
@@ -716,7 +753,7 @@
         <div class="cert-meta"><span class="expiry">Expires May 2029</span><a href="https://www.credly.com/badges/18bf162e-29c4-4ec6-86f3-42289c1e6d0e/linked_in_profile" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
 
-      <div class="cert-card">
+      <div class="cert-card" data-category="cyber-foundations">
         <div class="cert-top">
           <div class="cert-icon"><img src="assets/icons/comptia.png" alt="CompTIA logo"></div>
           <span class="cert-badge-status">verified</span>
@@ -726,7 +763,7 @@
         <div class="cert-meta"><span class="expiry">Expires May 2029</span><a href="https://www.credly.com/badges/5f1b95e5-5397-4b13-b470-01e96629c20c/linked_in_profile" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
 
-      <div class="cert-card">
+      <div class="cert-card" data-category="cyber-cloud">
         <div class="cert-top">
           <div class="cert-icon"><img src="assets/icons/microsoft.png" alt="Microsoft logo"></div>
           <span class="cert-badge-status">verified</span>
@@ -736,7 +773,7 @@
         <div class="cert-meta"><span class="expiry">No expiration</span><a href="https://learn.microsoft.com/en-us/users/khalidabess-8986/credentials/aefff588ad8598f9?ref=https%3A%2F%2Fwww.linkedin.com%2F" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
 
-      <div class="cert-card">
+      <div class="cert-card" data-category="cyber-cloud">
         <div class="cert-top">
           <div class="cert-icon"><img src="assets/icons/aws.png" alt="AWS logo"></div>
           <span class="cert-badge-status">verified</span>
@@ -746,7 +783,7 @@
         <div class="cert-meta"><span class="expiry">Expires Jul 2029</span><a href="https://www.credly.com/badges/3a9e8a7f-421e-4501-90c6-7bcf84d5384b" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
 
-      <div class="cert-card">
+      <div class="cert-card" data-category="cyber-foundations">
         <div class="cert-top">
           <div class="cert-icon"><img src="assets/icons/tcm-security.png" alt="TCM Security logo"></div>
           <span class="cert-badge-status">verified</span>
@@ -756,7 +793,7 @@
         <div class="cert-meta"><span class="expiry">No expiration</span><a href="https://certified.tcm-sec.com/f620adb2-5c60-4ec2-8339-8fbf4e1e9300#acc.kl1GgI32" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
 
-      <div class="cert-card">
+      <div class="cert-card" data-category="cyber-foundations">
         <div class="cert-top">
           <div class="cert-icon"><img src="assets/icons/google.png" alt="Google logo"></div>
           <span class="cert-badge-status">verified</span>
@@ -766,7 +803,7 @@
         <div class="cert-meta"><span class="expiry">No expiration</span><a href="https://www.coursera.org/account/accomplishments/specialization/DV9I22SUCNY7" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
 
-      <div class="cert-card">
+      <div class="cert-card" data-category="cyber-foundations">
         <div class="cert-top">
           <div class="cert-icon"><img src="assets/icons/google.png" alt="Google logo"></div>
           <span class="cert-badge-status">verified</span>
@@ -936,6 +973,23 @@
 
 <script>
 (function(){
+  // ---- Certification filter ----
+  const filterBar = document.getElementById('cert-filter-bar');
+  const certCards = document.querySelectorAll('#cert-grid .cert-card');
+  if (filterBar){
+    filterBar.addEventListener('click', function(e){
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      certCards.forEach(card => {
+        const match = filter === 'all' || card.dataset.category === filter;
+        card.classList.toggle('hidden', !match);
+      });
+    });
+  }
+
   // ---- Mobile nav toggle ----
   const header = document.getElementById('site-header');
   const toggle = document.getElementById('nav-toggle');
@@ -955,7 +1009,7 @@
   // ---- Hero typewriter ----
   const lines = [
     { prompt: '$ whoami', out: 'khalid_abess' },
-    { prompt: '$ cat role.txt', out: 'Doctor & Ethical Hacker' },
+    { prompt: '$ cat role.txt', out: 'Physician & Penetration Tester' },
     { prompt: '$ status --check', out: 'Available for new opportunities ✓' }
   ];
   const el = document.getElementById('typewriter');
