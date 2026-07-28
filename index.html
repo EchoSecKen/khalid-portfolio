@@ -8,7 +8,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%2339ff14%22>&gt;_</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --void:#050806;
@@ -26,8 +26,38 @@
     --amber:#ffb703;
     --danger:#ff5d5d;
     --radius:2px;
+    --glow-strong: rgba(57,255,20,0.45);
+    --glow-med: rgba(57,255,20,0.35);
+    --glow-faint: rgba(57,255,20,0.06);
+    --glow-hair: rgba(57,255,20,0.04);
+    --scanline: rgba(57,255,20,0.025);
     --mono-disp:'JetBrains Mono', monospace;
     --mono-body:'IBM Plex Mono', monospace;
+  }
+
+  /* ---------- PHYSICIAN THEME OVERRIDE ---------- */
+  body[data-theme="physician"]{
+    --void:#f6f9fc;
+    --void-2:#ffffff;
+    --panel:#ffffff;
+    --panel-alt:#eef3f8;
+    --line:#dde5ee;
+    --line-soft:#e9eff5;
+    --green:#2563eb;
+    --green-mid:#0f9d8f;
+    --green-dim:#c3d7f2;
+    --text:#1c2a3a;
+    --text-dim:#5b6b7e;
+    --text-faint:#93a2b3;
+    --amber:#e07a1f;
+    --radius:10px;
+    --glow-strong: rgba(37,99,235,0.28);
+    --glow-med: rgba(37,99,235,0.2);
+    --glow-faint: rgba(37,99,235,0.07);
+    --glow-hair: rgba(37,99,235,0.05);
+    --scanline: rgba(0,0,0,0);
+    --mono-disp:'Fraunces', Georgia, serif;
+    --mono-body:'Inter', sans-serif;
   }
 
   *{ box-sizing:border-box; margin:0; padding:0; }
@@ -45,7 +75,7 @@
     overflow-x:hidden;
     background-image:
       linear-gradient(var(--void) 0%, var(--void) 100%),
-      repeating-linear-gradient(0deg, rgba(57,255,20,0.025) 0px, rgba(57,255,20,0.025) 1px, transparent 1px, transparent 3px);
+      repeating-linear-gradient(0deg, var(--scanline) 0px, var(--scanline) 1px, transparent 1px, transparent 3px);
   }
 
   a{ color:inherit; text-decoration:none; }
@@ -151,7 +181,7 @@
   .nav-links a::before{ content:"--"; color:var(--text-faint); }
   .nav-links a:hover, .nav-links a:focus-visible{
     color:var(--green);
-    background:rgba(57,255,20,0.06);
+    background:var(--glow-faint);
   }
 
   .nav-cta{
@@ -166,7 +196,7 @@
     white-space:nowrap;
     transition:transform .15s ease, box-shadow .15s ease;
   }
-  .nav-cta:hover{ box-shadow:0 0 18px rgba(57,255,20,0.45); transform:translateY(-1px); }
+  .nav-cta:hover{ box-shadow:0 0 18px var(--glow-strong); transform:translateY(-1px); }
 
   .nav-toggle{
     display:none;
@@ -203,7 +233,7 @@
     background:rgba(9,16,11,0.72);
     border:1px solid var(--line);
     border-radius:6px;
-    box-shadow:0 0 0 1px rgba(57,255,20,0.04), 0 20px 60px rgba(0,0,0,0.5);
+    box-shadow:0 0 0 1px var(--glow-hair), 0 20px 60px rgba(0,0,0,0.15);
     overflow:hidden;
     margin-bottom:34px;
   }
@@ -248,7 +278,7 @@
     margin-bottom:14px;
     letter-spacing:-0.01em;
   }
-  .hero h1 .accent{ color:var(--green); text-shadow:0 0 24px rgba(57,255,20,0.35); }
+  .hero h1 .accent{ color:var(--green); text-shadow:0 0 24px var(--glow-med); }
   .hero p.lead{
     max-width:560px;
     color:var(--text-dim);
@@ -275,7 +305,7 @@
     color:#03130a;
     border-color:var(--green);
   }
-  .btn-primary:hover{ box-shadow:0 0 22px rgba(57,255,20,0.45); transform:translateY(-2px); }
+  .btn-primary:hover{ box-shadow:0 0 22px var(--glow-strong); transform:translateY(-2px); }
   .btn-ghost{
     background:transparent;
     color:var(--text);
@@ -453,7 +483,7 @@
     font-family:var(--mono-disp);
     font-size:10.5px;
     color:var(--green-mid);
-    background:rgba(57,255,20,0.06);
+    background:var(--glow-faint);
     border:1px solid var(--green-dim);
     padding:3px 9px;
     border-radius:3px;
@@ -544,6 +574,99 @@
   .form-foot{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
   .form-note{ font-size:11.5px; color:var(--text-faint); font-family:var(--mono-disp); }
 
+  /* ---------- MODE TOGGLE ---------- */
+  body[data-mode="hacker"] .only-physician{ display:none !important; }
+  body[data-mode="physician"] .only-hacker{ display:none !important; }
+
+  .mode-toggle{
+    display:flex;
+    align-items:center;
+    gap:2px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:24px;
+    padding:3px;
+    margin-left:14px;
+  }
+  .mode-btn{
+    font-family:var(--mono-disp);
+    font-size:11.5px;
+    font-weight:700;
+    letter-spacing:.02em;
+    color:var(--text-dim);
+    background:transparent;
+    border:none;
+    padding:7px 13px;
+    border-radius:20px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    transition:color .15s ease, background .15s ease;
+    white-space:nowrap;
+  }
+  .mode-btn.active{
+    color:var(--void);
+    background:var(--green);
+  }
+  .mode-btn:hover:not(.active){ color:var(--text); }
+
+  body[data-theme="physician"]{ background-image:none; }
+
+  /* ---------- CLEAN HERO (physician) ---------- */
+  .hero-physician{
+    max-width:640px;
+  }
+  .physician-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:var(--mono-body);
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--green-mid);
+    background:var(--glow-faint);
+    border:1px solid var(--green-dim);
+    padding:7px 14px;
+    border-radius:30px;
+    margin-bottom:24px;
+  }
+  .physician-badge svg{ width:14px; height:14px; }
+  .hero-physician h1{
+    font-family:var(--mono-disp);
+    font-weight:600;
+    font-size:clamp(34px, 5vw, 54px);
+    line-height:1.15;
+    color:var(--text);
+    margin-bottom:16px;
+  }
+  .hero-physician p.lead{ font-family:var(--mono-body); }
+
+  /* ---------- MEDICAL QUAL CARDS ---------- */
+  .qual-icon{
+    width:42px; height:42px;
+    background:var(--glow-faint);
+    border:1px solid var(--green-dim);
+    border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--green);
+    flex-shrink:0;
+  }
+  .qual-icon svg{ width:20px; height:20px; }
+
+  /* ---------- CLINICAL EXPERIENCE CARDS ---------- */
+  .clin-card .proj-head{ background:var(--panel-alt); }
+  .clin-date{
+    font-family:var(--mono-body);
+    font-size:11.5px;
+    font-weight:600;
+    color:var(--green-mid);
+    background:var(--glow-faint);
+    border:1px solid var(--green-dim);
+    padding:3px 10px;
+    border-radius:20px;
+  }
+
   /* ---------- FOOTER ---------- */
   footer{ padding:36px 0; }
   .footer-inner{
@@ -561,18 +684,23 @@
     .about-grid, .contact-grid{ grid-template-columns:1fr; }
     .nav-links{ display:none; }
     .nav-toggle{ display:inline-flex; align-items:center; }
+    .mode-toggle{ margin-left:8px; }
     header.open .nav-links{
       display:flex;
       position:absolute;
       top:100%; left:0; right:0;
       flex-direction:column;
       align-items:stretch;
-      background:rgba(3,10,6,0.98);
+      background:var(--void);
       border-bottom:1px solid var(--line);
       padding:10px 20px 18px;
       gap:2px;
     }
     header.open .nav-links a{ padding:12px 8px; }
+  }
+  @media (max-width: 640px){
+    .nav-cta{ display:none; }
+    .mode-btn{ padding:7px 9px; font-size:10.5px; }
   }
   @media (max-width: 520px){
     section{ padding:64px 0; }
@@ -587,48 +715,80 @@
   }
 </style>
 </head>
-<body>
+<body data-mode="hacker" data-theme="hacker">
 
 <!-- ============ NAV ============ -->
 <header id="site-header">
   <nav>
-    <div class="logo"><span class="prompt">khalid@portfolio</span>:~$<span class="cursor" aria-hidden="true"></span></div>
+    <div class="logo">
+      <span class="only-hacker"><span class="prompt">khalid@portfolio</span>:~$<span class="cursor" aria-hidden="true"></span></span>
+      <span class="only-physician">Dr. Khalid Abess</span>
+    </div>
     <ul class="nav-links">
-      <li><a href="#about">about</a></li>
-      <li><a href="#certifications">certs</a></li>
-      <li><a href="#projects">projects</a></li>
+      <li><a href="#about"><span class="only-hacker">about</span><span class="only-physician">about</span></a></li>
+      <li><a href="#certifications"><span class="only-hacker">certs</span><span class="only-physician">qualifications</span></a></li>
+      <li><a href="#projects"><span class="only-hacker">projects</span><span class="only-physician">experience</span></a></li>
       <li><a href="#contact">contact</a></li>
     </ul>
-    <a href="resume.pdf" download class="nav-cta" style="margin-left:16px;">↓ resume</a>
+    <a href="resume.pdf" download class="nav-cta only-hacker" style="margin-left:16px;">↓ resume</a>
+    <a href="cv.pdf" download class="nav-cta only-physician" style="margin-left:16px;">↓ cv</a>
+    <div class="mode-toggle" role="tablist" aria-label="Portfolio mode">
+      <button class="mode-btn active" data-mode="hacker" type="button" role="tab" aria-selected="true">🖥 Hacker</button>
+      <button class="mode-btn" data-mode="physician" type="button" role="tab" aria-selected="false">⚕ Physician</button>
+    </div>
     <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">≡</button>
   </nav>
 </header>
 
 <!-- ============ HERO ============ -->
 <section class="hero" id="top">
-  <canvas id="matrix-canvas" aria-hidden="true"></canvas>
+  <canvas id="matrix-canvas" class="only-hacker" aria-hidden="true"></canvas>
   <div class="wrap hero-inner">
-    <div class="terminal-window">
-      <div class="terminal-bar">
-        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-        <span class="terminal-title">khalid@portfolio: ~/boot</span>
+
+    <div class="only-hacker">
+      <div class="terminal-window">
+        <div class="terminal-bar">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+          <span class="terminal-title">khalid@portfolio: ~/boot</span>
+        </div>
+        <div class="terminal-body" id="typewriter" aria-live="polite"></div>
       </div>
-      <div class="terminal-body" id="typewriter" aria-live="polite"></div>
+
+      <h1>Khalid Abess <span class="accent">//</span> breaking systems<br>to build <span class="accent">safer</span> ones.</h1>
+      <p class="lead">Diagnosing patients by day <span class="accent">|</span> hunting vulnerabilities by night. Currently open to new opportunities.</p>
+
+      <div class="btn-row">
+        <a href="resume.pdf" download class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+          Download Resume
+        </a>
+        <a href="#contact" class="btn btn-ghost">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M3 6l9 7 9-7M3 6h18v12H3V6z"/></svg>
+          Contact Me
+        </a>
+      </div>
     </div>
 
-    <h1>Khalid Abess <span class="accent">//</span> breaking systems<br>to build <span class="accent">safer</span> ones.</h1>
-    <p class="lead">Diagnosing patients by day <span class="accent">|</span> hunting vulnerabilities by night. Currently open to new opportunities.</p>
+    <div class="only-physician hero-physician">
+      <div class="physician-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="10"/></svg>
+        Currently open to new opportunities
+      </div>
+      <h1>Dr. Khalid Abess</h1>
+      <p class="lead">Physician focused on general medicine, blending clinical care with a second discipline in cybersecurity. Placeholder tagline: replace with your specialty and practice focus.</p>
 
-    <div class="btn-row">
-      <a href="resume.pdf" download class="btn btn-primary">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
-        Download Resume
-      </a>
-      <a href="#contact" class="btn btn-ghost">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M3 6l9 7 9-7M3 6h18v12H3V6z"/></svg>
-        Contact Me
-      </a>
+      <div class="btn-row">
+        <a href="cv.pdf" download class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+          Download CV
+        </a>
+        <a href="#contact" class="btn btn-ghost">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M3 6l9 7 9-7M3 6h18v12H3V6z"/></svg>
+          Contact Me
+        </a>
+      </div>
     </div>
+
   </div>
 </section>
 
@@ -636,11 +796,12 @@
 <section id="about">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="eyebrow">$ cat about.md</div>
-      <h2 class="section-title">About <span class="dim">// 01</span></h2>
+      <div class="eyebrow only-hacker">$ cat about.md</div>
+      <div class="eyebrow only-physician">About</div>
+      <h2 class="section-title"><span class="only-hacker">About <span class="dim">// 01</span></span><span class="only-physician">About Me</span></h2>
     </div>
 
-    <div class="about-grid">
+    <div class="about-grid only-hacker">
       <div class="about-text reveal">
         <p>I'm a medical doctor who fell into cybersecurity around my fourth year of med school, and never really climbed back out. It started as something to unwind with, a fun hobby on the side of a demanding degree, and turned into a parallel track I took seriously enough to build up a dozen industry certifications alongside my clinical training. My focus today is <strong>application security</strong> and <strong>cloud security</strong>.</p>
         <p>I like understanding a system well enough to break it: an overly permissive IAM policy, an exposed storage bucket, an input field that trusts the user a little too much. I use that same understanding to help teams lock things down before someone else finds the gap first. Medicine trained me to work a problem down to its root cause methodically, without skipping steps, and that habit shows up in how I approach a security assessment just as much as it does in how I approach a diagnosis.</p>
@@ -673,6 +834,40 @@
         </div>
       </div>
     </div>
+
+    <div class="about-grid only-physician">
+      <div class="about-text reveal">
+        <p>Placeholder bio: replace with your own story. I'm a physician practicing general medicine, focused on providing attentive, evidence-based care. My clinical training taught me to work through a case methodically, gather the full picture before acting, and stay calm when something doesn't add up.</p>
+        <p>Outside the clinic, I split my time between staying current on medical literature and my second discipline, cybersecurity. Replace this paragraph with details on your specialty, practice setting, and what drives your approach to patient care.</p>
+
+        <div class="about-facts">
+          <div class="fact"><div class="k">Location</div><div class="v">Algeria, Guelma</div></div>
+          <div class="fact"><div class="k">Specialty</div><div class="v">Placeholder</div></div>
+          <div class="fact"><div class="k">Status</div><div class="v">Practicing</div></div>
+          <div class="fact"><div class="k">Experience</div><div class="v">Placeholder yrs</div></div>
+        </div>
+      </div>
+
+      <div class="skills-panel reveal">
+        <div class="head">Clinical Skills</div>
+        <div class="skill">
+          <div class="skill-top"><span class="name">Patient Care</span><span class="pct">95%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-pct="95"></div></div>
+        </div>
+        <div class="skill">
+          <div class="skill-top"><span class="name">Diagnostics</span><span class="pct">90%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-pct="90"></div></div>
+        </div>
+        <div class="skill">
+          <div class="skill-top"><span class="name">Emergency Medicine</span><span class="pct">85%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-pct="85"></div></div>
+        </div>
+        <div class="skill">
+          <div class="skill-top"><span class="name">Patient Communication</span><span class="pct">95%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-pct="95"></div></div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -680,10 +875,12 @@
 <section id="certifications">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="eyebrow">$ cat certifications.log</div>
-      <h2 class="section-title">Certifications <span class="dim">// 02</span></h2>
+      <div class="eyebrow only-hacker">$ cat certifications.log</div>
+      <div class="eyebrow only-physician">Credentials</div>
+      <h2 class="section-title"><span class="only-hacker">Certifications <span class="dim">// 02</span></span><span class="only-physician">Qualifications &amp; Licenses</span></h2>
     </div>
 
+    <div class="only-hacker">
     <div class="cert-filter-bar reveal" id="cert-filter-bar" role="group" aria-label="Filter certifications by subfield">
       <button class="filter-btn active" data-filter="all" type="button">all</button>
       <button class="filter-btn" data-filter="cyber-cloud" type="button">cloud</button>
@@ -813,6 +1010,49 @@
         <div class="cert-meta"><span class="expiry">No expiration</span><a href="https://www.coursera.org/account/accomplishments/specialization/WABHMC5IF5NF" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
     </div>
+    </div>
+
+    <div class="cert-grid only-physician reveal">
+      <div class="cert-card">
+        <div class="cert-top">
+          <div class="qual-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <span class="cert-badge-status">verified</span>
+        </div>
+        <h3>Doctor of Medicine (MD)</h3>
+        <div class="issuer">Placeholder University · Issued Placeholder Year</div>
+        <div class="cert-meta"><span class="expiry">No expiration</span><a href="#" class="verify">Verify →</a></div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-top">
+          <div class="qual-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <span class="cert-badge-status">verified</span>
+        </div>
+        <h3>Medical License</h3>
+        <div class="issuer">Placeholder National Order of Physicians · Issued Placeholder Year</div>
+        <div class="cert-meta"><span class="expiry">No expiration</span><a href="#" class="verify">Verify →</a></div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-top">
+          <div class="qual-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <span class="cert-badge-status">verified</span>
+        </div>
+        <h3>Basic Life Support (BLS) Certification</h3>
+        <div class="issuer">Placeholder Issuer · Issued Placeholder Year</div>
+        <div class="cert-meta"><span class="expiry">Placeholder expiry</span><a href="#" class="verify">Verify →</a></div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-top">
+          <div class="qual-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <span class="cert-badge-status">verified</span>
+        </div>
+        <h3>Advanced Cardiac Life Support (ACLS) Certification</h3>
+        <div class="issuer">Placeholder Issuer · Issued Placeholder Year</div>
+        <div class="cert-meta"><span class="expiry">Placeholder expiry</span><a href="#" class="verify">Verify →</a></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -820,11 +1060,12 @@
 <section id="projects">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="eyebrow">$ ls -la ./projects</div>
-      <h2 class="section-title">Projects <span class="dim">// 03</span></h2>
+      <div class="eyebrow only-hacker">$ ls -la ./projects</div>
+      <div class="eyebrow only-physician">Experience</div>
+      <h2 class="section-title"><span class="only-hacker">Projects <span class="dim">// 03</span></span><span class="only-physician">Clinical Experience</span></h2>
     </div>
 
-    <div class="proj-grid reveal">
+    <div class="proj-grid reveal only-hacker">
       <div class="proj-card">
         <div class="proj-head">
           <span class="path">~/projects/net-intrusion-detector</span>
@@ -895,9 +1136,66 @@
         </div>
       </div>
     </div>
+
+    <div class="proj-grid reveal only-physician">
+      <div class="proj-card clin-card">
+        <div class="proj-head">
+          <span class="path">Placeholder Hospital</span>
+          <span class="clin-date">2024 &ndash; Present</span>
+        </div>
+        <div class="proj-body">
+          <h3>Resident Physician, General Medicine</h3>
+          <p>Placeholder description: replace with your role, responsibilities, and notable outcomes during this position.</p>
+          <div class="tag-row">
+            <span class="tag">General Medicine</span><span class="tag">Patient Care</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card clin-card">
+        <div class="proj-head">
+          <span class="path">Placeholder Hospital / Department</span>
+          <span class="clin-date">2023 &ndash; 2024</span>
+        </div>
+        <div class="proj-body">
+          <h3>Clinical Rotation, Internal Medicine</h3>
+          <p>Placeholder description: replace with details about this rotation, the department, and what you worked on.</p>
+          <div class="tag-row">
+            <span class="tag">Internal Medicine</span><span class="tag">Diagnostics</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card clin-card">
+        <div class="proj-head">
+          <span class="path">Placeholder Institution</span>
+          <span class="clin-date">Placeholder Year</span>
+        </div>
+        <div class="proj-body">
+          <h3>Research: Placeholder Study Title</h3>
+          <p>Placeholder description: replace with a short summary of the research, your role, and any publication link.</p>
+          <div class="tag-row">
+            <span class="tag">Research</span><span class="tag">Publication</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card clin-card">
+        <div class="proj-head">
+          <span class="path">Placeholder Organization</span>
+          <span class="clin-date">Placeholder Year</span>
+        </div>
+        <div class="proj-body">
+          <h3>Volunteer, Emergency Medical Response</h3>
+          <p>Placeholder description: replace with details about this volunteer experience and its impact.</p>
+          <div class="tag-row">
+            <span class="tag">Emergency Response</span><span class="tag">Volunteering</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
-
 <!-- ============ CONTACT ============ -->
 <section id="contact">
   <div class="wrap">
@@ -908,7 +1206,8 @@
 
     <div class="contact-grid">
       <div class="contact-info reveal">
-        <p>Have a role, project, or CTF team that needs another set of eyes? My inbox is open, and I read and reply to everything.</p>
+        <p class="only-hacker">Have a role, project, or CTF team that needs another set of eyes? My inbox is open, and I read and reply to everything.</p>
+        <p class="only-physician">Have a question, referral, or opportunity to discuss? My inbox is open, and I read and reply to everything.</p>
 
         <div class="contact-line">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6l9 7 9-7M3 6h18v12H3V6z"/></svg>
@@ -966,8 +1265,9 @@
 
 <footer>
   <div class="wrap footer-inner">
-    <div><span class="prompt">khalid@portfolio</span>:~$ echo "thanks for stopping by"<span class="cursor-blink" aria-hidden="true"></span></div>
-    <div>© <span id="year"></span> Dr. Khalid Abess. Built with green pixels and coffee.</div>
+    <div class="only-hacker"><span class="prompt">khalid@portfolio</span>:~$ echo "thanks for stopping by"<span class="cursor-blink" aria-hidden="true"></span></div>
+    <div class="only-physician">Thank you for visiting.</div>
+    <div>© <span id="year"></span> Dr. Khalid Abess. <span class="only-hacker">Built with green pixels and coffee.</span><span class="only-physician">Built with care and a steady hand.</span></div>
   </div>
 </footer>
 
@@ -989,6 +1289,26 @@
       });
     });
   }
+
+  // ---- Portfolio mode toggle (Hacker / Physician) ----
+  const modeButtons = document.querySelectorAll('.mode-btn');
+  modeButtons.forEach(btn => {
+    btn.addEventListener('click', function(){
+      const mode = btn.dataset.mode;
+      document.body.dataset.mode = mode;
+      document.body.dataset.theme = mode;
+      modeButtons.forEach(b => {
+        const active = b === btn;
+        b.classList.toggle('active', active);
+        b.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      // Instantly reveal any not-yet-revealed content in the section that just became visible
+      document.querySelectorAll('.only-' + mode + ' .reveal:not(.in)').forEach(el => el.classList.add('in'));
+      document.querySelectorAll('.only-' + mode + ' .skill-fill').forEach(bar => {
+        bar.style.width = bar.dataset.pct + '%';
+      });
+    });
+  });
 
   // ---- Mobile nav toggle ----
   const header = document.getElementById('site-header');
@@ -1078,8 +1398,7 @@
       }
     });
   }, { threshold: 0.3 });
-  const skillsPanel = document.querySelector('.skills-panel');
-  if (skillsPanel) skillObserver.observe(skillsPanel);
+  document.querySelectorAll('.skills-panel').forEach(panel => skillObserver.observe(panel));
 
   // ---- Reveal on scroll ----
   const revealObserver = new IntersectionObserver((entries) => {
@@ -1147,7 +1466,7 @@
     let raf;
     let lastTime = 0;
     function loop(t){
-      if (t - lastTime > 55){ draw(); lastTime = t; }
+      if (document.body.dataset.mode === 'hacker' && t - lastTime > 55){ draw(); lastTime = t; }
       raf = requestAnimationFrame(loop);
     }
     raf = requestAnimationFrame(loop);
