@@ -64,7 +64,7 @@
 
   *{ box-sizing:border-box; margin:0; padding:0; }
 
-  html{ scroll-behavior:smooth; }
+  html{ scroll-behavior:smooth; max-width:100%; overflow-x:hidden; }
 
   ::selection{ background:var(--green); color:#03130a; }
 
@@ -209,12 +209,13 @@
   /* ---------- HERO ---------- */
   .hero{
     min-height:100vh;
+    min-height:100svh;
     display:flex;
     align-items:center;
     padding-top:120px;
+    padding-bottom:60px;
     border-bottom:1px solid var(--line-soft);
     position:relative;
-    overflow:hidden;
   }
   #matrix-canvas{
     position:absolute; inset:0;
@@ -701,14 +702,27 @@
     header.open .nav-links a{ padding:12px 8px; }
   }
   @media (max-width: 640px){
+    nav{ padding:14px 16px; gap:6px; }
     .nav-cta{ display:none; }
+    .mode-toggle{ margin-left:auto; }
     .mode-btn{ padding:7px 9px; font-size:10.5px; }
+    .logo{ font-size:12.5px; }
+  }
+  @media (max-width: 480px){
+    .logo{ font-size:11px; }
+    .mode-btn{ padding:6px 7px; font-size:9.5px; }
+    .nav-toggle{ padding:5px 8px; font-size:16px; }
   }
   @media (max-width: 520px){
-    section{ padding:64px 0; }
+    .wrap{ padding:0 18px; }
+    section{ padding:56px 0; }
     .terminal-body{ font-size:13px; padding:18px; }
     .btn-row{ flex-direction:column; }
     .btn{ justify-content:center; }
+    .hero{ padding-top:104px; }
+    .physician-badge{ font-size:11.5px; padding:6px 12px; }
+    .cert-grid, .proj-grid{ grid-template-columns:1fr; }
+    .about-facts{ grid-template-columns:1fr 1fr; gap:10px; }
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -982,6 +996,16 @@
         <div class="cert-meta"><span class="expiry">Expires Jul 2029</span><a href="https://www.credly.com/badges/3a9e8a7f-421e-4501-90c6-7bcf84d5384b" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
 
+      <div class="cert-card" data-category="cyber-cloud">
+        <div class="cert-top">
+          <div class="cert-icon"><img src="assets/icons/aws.png" alt="AWS logo"></div>
+          <span class="cert-badge-status">verified</span>
+        </div>
+        <h3>AWS Certified AI Practitioner</h3>
+        <div class="issuer">Amazon Web Services (AWS) · Issued Aug 2026</div>
+        <div class="cert-meta"><span class="expiry">Expires Aug 2029</span><a href="#" target="_blank" rel="noopener" class="verify">Verify →</a></div>
+      </div>
+
       <div class="cert-card" data-category="cyber-foundations">
         <div class="cert-top">
           <div class="cert-icon"><img src="assets/icons/tcm-security.png" alt="TCM Security logo"></div>
@@ -1070,70 +1094,34 @@
     <div class="proj-grid reveal only-hacker">
       <div class="proj-card">
         <div class="proj-head">
-          <span class="path">~/projects/net-intrusion-detector</span>
+          <span class="path">~/projects/phishing-detector</span>
           <span class="status-tag status-live">live</span>
         </div>
         <div class="proj-body">
-          <h3>Network Intrusion Detector</h3>
-          <p>Placeholder description: a lightweight IDS that inspects live traffic and flags anomalous patterns using signature and behavior-based rules.</p>
+          <h3>AI-Powered Phishing Email Detector</h3>
+          <p>Serverless AWS pipeline that analyzes raw .eml files for phishing indicators using Amazon Bedrock (Nova Lite). Returns a structured risk score, verdict, and explanation via a Lambda-backed API.</p>
           <div class="tag-row">
-            <span class="tag">Python</span><span class="tag">Scapy</span><span class="tag">Linux</span>
+            <span class="tag">AWS Lambda</span><span class="tag">Bedrock</span><span class="tag">API Gateway</span><span class="tag">Python</span>
           </div>
           <div class="proj-links">
-            <a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.46-1.19-1.11-1.51-1.11-1.51-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.94-2.35 4.8-4.58 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg> GitHub</a>
-            <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg> Live Demo</a>
+            <a href="https://github.com/EchoSecKen/phishing-detector" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.46-1.19-1.11-1.51-1.11-1.51-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.94-2.35 4.8-4.58 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg> GitHub</a>
           </div>
         </div>
       </div>
 
       <div class="proj-card">
         <div class="proj-head">
-          <span class="path">~/projects/vuln-scanner-cli</span>
-          <span class="status-tag status-progress">in progress</span>
-        </div>
-        <div class="proj-body">
-          <h3>Vulnerability Scanner CLI</h3>
-          <p>Placeholder description: a command-line scanner that checks hosts for common misconfigurations and outdated services, then generates a report.</p>
-          <div class="tag-row">
-            <span class="tag">Python</span><span class="tag">Nmap</span><span class="tag">CLI</span>
-          </div>
-          <div class="proj-links">
-            <a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.46-1.19-1.11-1.51-1.11-1.51-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.94-2.35 4.8-4.58 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg> GitHub</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="proj-card">
-        <div class="proj-head">
-          <span class="path">~/projects/phishing-toolkit</span>
+          <span class="path">~/projects/virustotal-lookup</span>
           <span class="status-tag status-live">live</span>
         </div>
         <div class="proj-body">
-          <h3>Phishing Awareness Toolkit</h3>
-          <p>Placeholder description: a simulation and training toolkit that helps teams run internal phishing awareness campaigns and track results.</p>
+          <h3>VirusTotal Hash Lookup Tool</h3>
+          <p>Serverless AWS tool and CLI that checks a file hash against VirusTotal and returns detection counts, plain-English malware category explanations, and remediation guidance. API key stored securely in Secrets Manager.</p>
           <div class="tag-row">
-            <span class="tag">Flask</span><span class="tag">PostgreSQL</span><span class="tag">Docker</span>
+            <span class="tag">AWS Lambda</span><span class="tag">Secrets Manager</span><span class="tag">API Gateway</span><span class="tag">Python</span>
           </div>
           <div class="proj-links">
-            <a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.46-1.19-1.11-1.51-1.11-1.51-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.94-2.35 4.8-4.58 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg> GitHub</a>
-            <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg> Live Demo</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="proj-card">
-        <div class="proj-head">
-          <span class="path">~/projects/secure-notes</span>
-          <span class="status-tag status-archived">archived</span>
-        </div>
-        <div class="proj-body">
-          <h3>Encrypted Notes App</h3>
-          <p>Placeholder description: a small client-side encrypted note-taking app built to practice applied cryptography fundamentals.</p>
-          <div class="tag-row">
-            <span class="tag">JavaScript</span><span class="tag">WebCrypto</span>
-          </div>
-          <div class="proj-links">
-            <a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.46-1.19-1.11-1.51-1.11-1.51-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.94-2.35 4.8-4.58 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg> GitHub</a>
+            <a href="https://github.com/EchoSecKen/virustotal-lookup" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.46-1.19-1.11-1.51-1.11-1.51-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.94-2.35 4.8-4.58 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg> GitHub</a>
           </div>
         </div>
       </div>
