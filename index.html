@@ -411,9 +411,33 @@
     border-radius:6px;
     padding:20px;
     position:relative;
+    overflow:hidden;
     transition:border-color .15s ease, transform .15s ease;
   }
   .cert-card:hover{ border-color:var(--green-dim); transform:translateY(-3px); }
+  .cert-card::after{
+    content:"";
+    position:absolute;
+    top:0; left:-40%;
+    width:35%; height:100%;
+    background:linear-gradient(90deg, transparent, var(--glow-med) 50%, transparent);
+    transform:skewX(-18deg);
+    opacity:0;
+    pointer-events:none;
+  }
+  .cert-card:hover::after{
+    opacity:1;
+    animation:scanSweep .9s ease forwards;
+  }
+  @keyframes scanSweep{
+    0%{ left:-40%; opacity:0; }
+    15%{ opacity:1; }
+    85%{ opacity:1; }
+    100%{ left:110%; opacity:0; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .cert-card::after{ display:none; }
+  }
   .cert-top{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px; }
   .cert-icon{
     width:42px; height:42px;
@@ -770,8 +794,8 @@
         <div class="terminal-body" id="typewriter" aria-live="polite"></div>
       </div>
 
-      <h1>Khalid Abess <span class="accent">//</span> breaking systems<br>to build <span class="accent">safer</span> ones.</h1>
-      <p class="lead">Diagnosing patients by day <span class="accent">|</span> hunting vulnerabilities by night. Currently open to new opportunities.</p>
+      <h1>Khalid Abess. I find the hole<br>before someone <span class="accent">exploits</span> it.</h1>
+      <p class="lead">Medical doctor, penetration tester, and the person your security team calls when "it probably won't happen" isn't good enough. 13 verified certifications, live AWS security tooling on GitHub, and a diagnostician's refusal to stop at the first symptom.</p>
 
       <div class="btn-row">
         <a href="resume.pdf" download class="btn btn-primary">
@@ -819,14 +843,14 @@
 
     <div class="about-grid only-hacker">
       <div class="about-text reveal">
-        <p>I'm a medical doctor who fell into cybersecurity around my fourth year of med school, and never really climbed back out. It started as something to unwind with, a fun hobby on the side of a demanding degree, and turned into a parallel track I took seriously enough to build up a dozen industry certifications alongside my clinical training. My focus today is <strong>application security</strong> and <strong>cloud security</strong>.</p>
-        <p>I like understanding a system well enough to break it: an overly permissive IAM policy, an exposed storage bucket, an input field that trusts the user a little too much. I use that same understanding to help teams lock things down before someone else finds the gap first. Medicine trained me to work a problem down to its root cause methodically, without skipping steps, and that habit shows up in how I approach a security assessment just as much as it does in how I approach a diagnosis.</p>
+        <p>I started cybersecurity as a way to decompress from med school in year four. It didn't stay a hobby. Two years and 13 certifications later, it's a parallel discipline: <strong>application security</strong> and <strong>cloud security</strong>, built alongside a full clinical training track, not instead of it.</p>
+        <p>My job is to think like the attacker before the attacker gets the chance: an IAM role with one permission too many, a storage bucket that's public by accident, an input field that trusts the user more than it should. Medicine taught me to chase a problem to its root cause and never call it solved on a hunch. That same discipline is why I'd rather ship a security assessment that's slow and right than fast and wrong.</p>
 
         <div class="about-facts">
           <div class="fact"><div class="k">Location</div><div class="v">Algeria, Guelma</div></div>
           <div class="fact"><div class="k">Focus</div><div class="v">AppSec &amp; Cloud Security</div></div>
           <div class="fact"><div class="k">Status</div><div class="v">Open to work</div></div>
-          <div class="fact"><div class="k">Experience</div><div class="v">2+ years</div></div>
+          <div class="fact"><div class="k">Certifications</div><div class="v">13 verified</div></div>
         </div>
       </div>
 
@@ -1099,7 +1123,7 @@
         </div>
         <div class="proj-body">
           <h3>AI-Powered Phishing Email Detector</h3>
-          <p>Serverless AWS pipeline that analyzes raw .eml files for phishing indicators using Amazon Bedrock (Nova Lite). Returns a structured risk score, verdict, and explanation via a Lambda-backed API.</p>
+          <p>Serverless AWS pipeline that reads raw .eml files, scores them against phishing indicators using Amazon Bedrock (Nova Lite), and returns a verdict, risk score, and plain-English explanation via a Lambda-backed API — so a suspicious email gets triaged in seconds, not a manual header hunt.</p>
           <div class="tag-row">
             <span class="tag">AWS Lambda</span><span class="tag">Bedrock</span><span class="tag">API Gateway</span><span class="tag">Python</span>
           </div>
@@ -1116,7 +1140,7 @@
         </div>
         <div class="proj-body">
           <h3>VirusTotal Hash Lookup Tool</h3>
-          <p>Serverless AWS tool and CLI that checks a file hash against VirusTotal and returns detection counts, plain-English malware category explanations, and remediation guidance. API key stored securely in Secrets Manager.</p>
+          <p>Serverless AWS tool and CLI that checks a file hash against VirusTotal and turns the raw detection count into a plain-English malware category and remediation steps — the verdict an analyst needs, not a wall of engine names. API key stays in Secrets Manager, never in code.</p>
           <div class="tag-row">
             <span class="tag">AWS Lambda</span><span class="tag">Secrets Manager</span><span class="tag">API Gateway</span><span class="tag">Python</span>
           </div>
@@ -1320,6 +1344,7 @@
   const lines = [
     { prompt: '$ whoami', out: 'khalid_abess' },
     { prompt: '$ cat role.txt', out: 'Physician & Penetration Tester' },
+    { prompt: '$ ls certs/ | wc -l', out: '13 verified credentials' },
     { prompt: '$ status --check', out: 'Available for new opportunities ✓' }
   ];
   const el = document.getElementById('typewriter');
@@ -1428,27 +1453,38 @@
   const canvas = document.getElementById('matrix-canvas');
   const ctx = canvas.getContext('2d');
   let cols, drops, w, h;
-  const chars = 'アイウエオカキクケコサシスセソ01アイウエオカキクケコ$#@%&';
+  const hexChars = '0123456789ABCDEF';
+  // Each column streams plausible packet-capture fragments instead of
+  // generic movie-code rain: hex byte pairs, the odd status/IP octet.
+  function randomToken(){
+    const roll = Math.random();
+    if (roll < 0.12) return (Math.floor(Math.random()*255)).toString().padStart(3,'0');
+    if (roll < 0.2) return ['SYN','ACK','RST','GET','200','403','0x1F'][Math.floor(Math.random()*7)];
+    return hexChars.charAt(Math.floor(Math.random()*16)) + hexChars.charAt(Math.floor(Math.random()*16));
+  }
 
   function resize(){
     w = canvas.width = canvas.offsetWidth;
     h = canvas.height = canvas.offsetHeight;
-    cols = Math.floor(w / 16);
-    drops = new Array(cols).fill(0).map(() => Math.random() * -50);
+    cols = Math.floor(w / 34);
+    drops = new Array(cols).fill(0).map(() => ({ y: Math.random() * -50, token: randomToken() }));
   }
   window.addEventListener('resize', resize);
   resize();
 
   function draw(){
-    ctx.fillStyle = 'rgba(5,8,6,0.12)';
+    ctx.fillStyle = 'rgba(5,8,6,0.14)';
     ctx.fillRect(0, 0, w, h);
-    ctx.fillStyle = '#39ff14';
-    ctx.font = '14px monospace';
+    ctx.font = '12.5px "IBM Plex Mono", monospace';
     for (let i = 0; i < cols; i++){
-      const char = chars.charAt(Math.floor(Math.random() * chars.length));
-      ctx.fillText(char, i * 16, drops[i] * 16);
-      if (drops[i] * 16 > h && Math.random() > 0.975) drops[i] = 0;
-      drops[i]++;
+      const d = drops[i];
+      const lead = d.y * 16 % h;
+      ctx.fillStyle = 'rgba(57,255,20,0.9)';
+      ctx.fillText(d.token, i * 34, lead);
+      ctx.fillStyle = 'rgba(57,255,20,0.28)';
+      ctx.fillText(randomToken(), i * 34, lead - 16);
+      if (lead > h && Math.random() > 0.965){ d.token = randomToken(); }
+      d.y++;
     }
   }
 
