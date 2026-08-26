@@ -538,8 +538,9 @@
   }
   .cert-card h3{ font-family:var(--mono-disp); font-size:15px; color:var(--text); margin-bottom:6px; line-height:1.4; }
   .cert-card .issuer{ font-size:12.5px; color:var(--text-dim); margin-bottom:12px; }
-  .cert-card .cert-meta{ display:flex; justify-content:space-between; align-items:center; font-family:var(--mono-disp); font-size:11.5px; color:var(--text-faint); border-top:1px dashed var(--line); padding-top:12px; }
+  .cert-card .cert-meta{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; font-family:var(--mono-disp); font-size:11.5px; color:var(--text-faint); border-top:1px dashed var(--line); padding-top:12px; }
   .cert-card .verify{ color:var(--green-mid); }
+  .cert-id{ flex-basis:100%; margin-bottom:8px; color:var(--green-dim); letter-spacing:0.02em; opacity:0.85; }
   .cert-card .verify:hover{ text-decoration:underline; }
 
   /* ---------- PROJECTS ---------- */
@@ -582,6 +583,26 @@
   .proj-body{ padding:20px 18px 22px; flex:1; display:flex; flex-direction:column; }
   .proj-body h3{ font-family:var(--mono-disp); font-size:16.5px; color:var(--text); margin-bottom:10px; }
   .proj-body p{ font-size:13.5px; color:var(--text-dim); margin-bottom:16px; flex:1; }
+  .incident-report{ margin-bottom:16px; flex:1; }
+  .ir-row{ display:flex; gap:10px; align-items:flex-start; padding:7px 0; border-bottom:1px dashed var(--line); font-size:12.5px; }
+  .ir-row:last-child{ border-bottom:none; }
+  .ir-label{
+    flex-shrink:0;
+    width:58px;
+    font-family:var(--mono-disp);
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:2px 0;
+    text-align:center;
+    border-radius:3px;
+    color:#03130a;
+  }
+  .ir-trigger{ background:#ffbd2e; }
+  .ir-action{ background:var(--green-dim); }
+  .ir-outcome{ background:var(--green); }
+  .ir-text{ color:var(--text-dim); line-height:1.5; }
   .tag-row{ display:flex; flex-wrap:wrap; gap:7px; margin-bottom:18px; }
   .tag{
     font-family:var(--mono-disp);
@@ -675,6 +696,33 @@
   }
   .field input:focus, .field textarea:focus{ border-color:var(--green); outline:none; }
   .field textarea{ min-height:110px; }
+  .field select{
+    width:100%;
+    background:var(--void-2);
+    border:1px solid var(--line);
+    color:var(--text);
+    font-family:var(--mono-body);
+    font-size:13.5px;
+    padding:12px 14px;
+    border-radius:var(--radius);
+    transition:border-color .15s ease;
+    cursor:pointer;
+  }
+  .field select:focus{ border-color:var(--green); outline:none; }
+  .priority-row{ display:flex; align-items:center; gap:10px; }
+  .priority-row select{ flex:1; }
+  .priority-row .sev-chip{ flex-shrink:0; transition:background .2s ease; }
+  .ticket-meta{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:9px 18px;
+    background:var(--panel-alt);
+    border-bottom:1px solid var(--line);
+    font-family:var(--mono-disp);
+    font-size:11px;
+  }
+  .ticket-id{ color:var(--text-faint); letter-spacing:0.03em; }
   .form-foot{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
   .form-note{ font-size:11.5px; color:var(--text-faint); font-family:var(--mono-disp); }
 
@@ -782,6 +830,39 @@
   /* ---------- REVEAL ---------- */
   .reveal{ opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease; }
   .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- SECTION DIVIDER ---------- */
+  .section-divider{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    max-width:1100px;
+    margin:0 auto;
+    padding:36px 24px;
+  }
+  .divider-line{ flex:1; height:1px; background:var(--line); position:relative; overflow:hidden; }
+  .divider-line::after{
+    content:"";
+    position:absolute; inset:0;
+    background:var(--green);
+    box-shadow:0 0 8px var(--glow-med);
+    transform:scaleX(0);
+    transform-origin:left;
+    transition:transform 1.1s cubic-bezier(.2,.8,.2,1);
+  }
+  .divider-line.right::after{ transform-origin:right; }
+  .section-divider.in .divider-line::after{ transform:scaleX(1); }
+  .divider-mark{
+    flex-shrink:0;
+    font-family:var(--mono-disp);
+    font-size:11px;
+    color:var(--green-dim);
+    opacity:0;
+    transform:translateY(4px);
+    transition:opacity .5s ease .5s, transform .5s ease .5s;
+    white-space:nowrap;
+  }
+  .section-divider.in .divider-mark{ opacity:1; transform:translateY(0); }
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width: 860px){
@@ -933,6 +1014,8 @@
   </div>
 </section>
 
+<div class="section-divider only-hacker" aria-hidden="true"><span class="divider-line"></span><span class="divider-mark">connecting → about.log</span><span class="divider-line right"></span></div>
+
 <!-- ============ ABOUT ============ -->
 <section id="about">
   <div class="wrap">
@@ -1012,6 +1095,8 @@
   </div>
 </section>
 
+<div class="section-divider only-hacker" aria-hidden="true"><span class="divider-line"></span><span class="divider-mark">connecting → certifications.log</span><span class="divider-line right"></span></div>
+
 <!-- ============ CERTIFICATIONS ============ -->
 <section id="certifications">
   <div class="wrap">
@@ -1037,7 +1122,7 @@
         </div>
         <h3>CompTIA CySA+ ce Certification</h3>
         <div class="issuer">CompTIA · Issued May 2026</div>
-        <div class="cert-meta"><span class="expiry">Expires May 2029</span><a href="https://www.credly.com/badges/6f82fe36-c027-4a51-954e-3e376830ce44/linked_in_profile" target="_blank" rel="noopener" class="verify">Verify →</a></div>
+        <div class="cert-meta"><span class="cert-id">id:6f82fe36</span><span class="expiry">Expires May 2029</span><a href="https://www.credly.com/badges/6f82fe36-c027-4a51-954e-3e376830ce44/linked_in_profile" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
 
       <div class="cert-card" data-category="cyber-cloud">
@@ -1047,7 +1132,7 @@
         </div>
         <h3>Microsoft Certified: Security Operations Analyst Associate</h3>
         <div class="issuer">Microsoft · Issued Mar 2026</div>
-        <div class="cert-meta"><span class="expiry">Expires Apr 2027</span><a href="https://learn.microsoft.com/en-us/users/khalidabess-8986/credentials/bfb15a53d4a2c1ea?ref=https%3A%2F%2Fwww.linkedin.com%2F" target="_blank" rel="noopener" class="verify">Verify →</a></div>
+        <div class="cert-meta"><span class="cert-id">id:bfb15a53</span><span class="expiry">Expires Apr 2027</span><a href="https://learn.microsoft.com/en-us/users/khalidabess-8986/credentials/bfb15a53d4a2c1ea?ref=https%3A%2F%2Fwww.linkedin.com%2F" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
 
       <div class="cert-card" data-category="cyber-soc">
@@ -1057,7 +1142,7 @@
         </div>
         <h3>Security Analyst (SAL1) Certificate</h3>
         <div class="issuer">TryHackMe · Issued Jan 2026</div>
-        <div class="cert-meta"><span class="expiry">Expires Feb 2029</span><a href="https://www.credly.com/badges/1295f712-3064-4df8-a440-c2c11673c95f" target="_blank" rel="noopener" class="verify">Verify →</a></div>
+        <div class="cert-meta"><span class="cert-id">id:1295f712</span><span class="expiry">Expires Feb 2029</span><a href="https://www.credly.com/badges/1295f712-3064-4df8-a440-c2c11673c95f" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
 
       <div class="cert-card" data-category="cyber-soc">
@@ -1067,7 +1152,7 @@
         </div>
         <h3>Practical SOC Analyst Associate</h3>
         <div class="issuer">TCM Security · Issued Feb 2026</div>
-        <div class="cert-meta"><span class="expiry">No expiration</span><a href="https://certified.tcm-sec.com/038b8da9-4ca3-4da4-ad12-a58df8c8c55a#acc.3UtXGFkV" target="_blank" rel="noopener" class="verify">Verify →</a></div>
+        <div class="cert-meta"><span class="cert-id">id:038b8da9</span><span class="expiry">No expiration</span><a href="https://certified.tcm-sec.com/038b8da9-4ca3-4da4-ad12-a58df8c8c55a#acc.3UtXGFkV" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
 
       <div class="cert-card" data-category="cyber-foundations">
@@ -1077,7 +1162,7 @@
         </div>
         <h3>Practical AI Pentest Associate</h3>
         <div class="issuer">TCM Security · Issued Dec 2025</div>
-        <div class="cert-meta"><span class="expiry">No expiration</span><a href="https://certified.tcm-sec.com/0b740103-684f-457b-8206-5194bf7b712d#acc.19gG87vh" target="_blank" rel="noopener" class="verify">Verify →</a></div>
+        <div class="cert-meta"><span class="cert-id">id:0b740103</span><span class="expiry">No expiration</span><a href="https://certified.tcm-sec.com/0b740103-684f-457b-8206-5194bf7b712d#acc.19gG87vh" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
 
       <div class="cert-card" data-category="cyber-foundations">
@@ -1087,7 +1172,7 @@
         </div>
         <h3>CompTIA Security+ ce Certification</h3>
         <div class="issuer">CompTIA · Issued Apr 2025</div>
-        <div class="cert-meta"><span class="expiry">Expires May 2029</span><a href="https://www.credly.com/badges/18bf162e-29c4-4ec6-86f3-42289c1e6d0e/linked_in_profile" target="_blank" rel="noopener" class="verify">Verify →</a></div>
+        <div class="cert-meta"><span class="cert-id">id:18bf162e</span><span class="expiry">Expires May 2029</span><a href="https://www.credly.com/badges/18bf162e-29c4-4ec6-86f3-42289c1e6d0e/linked_in_profile" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
 
       <div class="cert-card" data-category="cyber-foundations">
@@ -1097,7 +1182,7 @@
         </div>
         <h3>CompTIA Network+ ce Certification</h3>
         <div class="issuer">CompTIA · Issued Feb 2025</div>
-        <div class="cert-meta"><span class="expiry">Expires May 2029</span><a href="https://www.credly.com/badges/5f1b95e5-5397-4b13-b470-01e96629c20c/linked_in_profile" target="_blank" rel="noopener" class="verify">Verify →</a></div>
+        <div class="cert-meta"><span class="cert-id">id:5f1b95e5</span><span class="expiry">Expires May 2029</span><a href="https://www.credly.com/badges/5f1b95e5-5397-4b13-b470-01e96629c20c/linked_in_profile" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
 
       <div class="cert-card" data-category="cyber-cloud">
@@ -1107,7 +1192,7 @@
         </div>
         <h3>Microsoft Certified: Azure Fundamentals</h3>
         <div class="issuer">Microsoft · Issued Jun 2025</div>
-        <div class="cert-meta"><span class="expiry">No expiration</span><a href="https://learn.microsoft.com/en-us/users/khalidabess-8986/credentials/aefff588ad8598f9?ref=https%3A%2F%2Fwww.linkedin.com%2F" target="_blank" rel="noopener" class="verify">Verify →</a></div>
+        <div class="cert-meta"><span class="cert-id">id:aefff588</span><span class="expiry">No expiration</span><a href="https://learn.microsoft.com/en-us/users/khalidabess-8986/credentials/aefff588ad8598f9?ref=https%3A%2F%2Fwww.linkedin.com%2F" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
 
       <div class="cert-card" data-category="cyber-cloud">
@@ -1117,7 +1202,7 @@
         </div>
         <h3>AWS Certified Cloud Practitioner</h3>
         <div class="issuer">Amazon Web Services (AWS) · Issued Jul 2026</div>
-        <div class="cert-meta"><span class="expiry">Expires Jul 2029</span><a href="https://www.credly.com/badges/3a9e8a7f-421e-4501-90c6-7bcf84d5384b" target="_blank" rel="noopener" class="verify">Verify →</a></div>
+        <div class="cert-meta"><span class="cert-id">id:3a9e8a7f</span><span class="expiry">Expires Jul 2029</span><a href="https://www.credly.com/badges/3a9e8a7f-421e-4501-90c6-7bcf84d5384b" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
 
       <div class="cert-card" data-category="cyber-cloud">
@@ -1127,7 +1212,7 @@
         </div>
         <h3>AWS Certified AI Practitioner</h3>
         <div class="issuer">Amazon Web Services (AWS) · Issued Aug 2026</div>
-        <div class="cert-meta"><span class="expiry">Expires Aug 2029</span><a href="https://www.credly.com/badges/0b904971-fff2-457b-a97e-e45d582f1186" target="_blank" rel="noopener" class="verify">Verify →</a></div>
+        <div class="cert-meta"><span class="cert-id">id:0b904971</span><span class="expiry">Expires Aug 2029</span><a href="https://www.credly.com/badges/0b904971-fff2-457b-a97e-e45d582f1186" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
 
       <div class="cert-card" data-category="cyber-foundations">
@@ -1137,7 +1222,7 @@
         </div>
         <h3>Practical Help Desk Associate</h3>
         <div class="issuer">TCM Security · Issued Jul 2025</div>
-        <div class="cert-meta"><span class="expiry">No expiration</span><a href="https://certified.tcm-sec.com/f620adb2-5c60-4ec2-8339-8fbf4e1e9300#acc.kl1GgI32" target="_blank" rel="noopener" class="verify">Verify →</a></div>
+        <div class="cert-meta"><span class="cert-id">id:f620adb2</span><span class="expiry">No expiration</span><a href="https://certified.tcm-sec.com/f620adb2-5c60-4ec2-8339-8fbf4e1e9300#acc.kl1GgI32" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
 
       <div class="cert-card" data-category="cyber-foundations">
@@ -1147,7 +1232,7 @@
         </div>
         <h3>Google Cybersecurity Specialization</h3>
         <div class="issuer">Google · Issued Jan 2025</div>
-        <div class="cert-meta"><span class="expiry">No expiration</span><a href="https://www.coursera.org/account/accomplishments/specialization/DV9I22SUCNY7" target="_blank" rel="noopener" class="verify">Verify →</a></div>
+        <div class="cert-meta"><span class="cert-id">id:dv9i22su</span><span class="expiry">No expiration</span><a href="https://www.coursera.org/account/accomplishments/specialization/DV9I22SUCNY7" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
 
       <div class="cert-card" data-category="cyber-foundations">
@@ -1157,7 +1242,7 @@
         </div>
         <h3>Google IT Support Specialization</h3>
         <div class="issuer">Google · Issued Jun 2025</div>
-        <div class="cert-meta"><span class="expiry">No expiration</span><a href="https://www.coursera.org/account/accomplishments/specialization/WABHMC5IF5NF" target="_blank" rel="noopener" class="verify">Verify →</a></div>
+        <div class="cert-meta"><span class="cert-id">id:wabhmc5i</span><span class="expiry">No expiration</span><a href="https://www.coursera.org/account/accomplishments/specialization/WABHMC5IF5NF" target="_blank" rel="noopener" class="verify">Verify →</a></div>
       </div>
     </div>
     </div>
@@ -1206,6 +1291,8 @@
   </div>
 </section>
 
+<div class="section-divider only-hacker" aria-hidden="true"><span class="divider-line"></span><span class="divider-mark">connecting → projects/</span><span class="divider-line right"></span></div>
+
 <!-- ============ PROJECTS ============ -->
 <section id="projects">
   <div class="wrap">
@@ -1223,7 +1310,11 @@
         </div>
         <div class="proj-body">
           <h3>AI-Powered Phishing Email Detector</h3>
-          <p>Serverless AWS pipeline that reads raw .eml files, scores them against phishing indicators using Amazon Bedrock (Nova Lite), and returns a verdict, risk score, and plain-English explanation via a Lambda-backed API — so a suspicious email gets triaged in seconds, not a manual header hunt.</p>
+          <div class="incident-report">
+            <div class="ir-row"><span class="ir-label ir-trigger">trigger</span><span class="ir-text">Analysts eyeballing raw .eml headers by hand to catch phishing — slow, and easy to miss.</span></div>
+            <div class="ir-row"><span class="ir-label ir-action">action</span><span class="ir-text">Built a serverless AWS pipeline that scores incoming emails against phishing indicators using Amazon Bedrock (Nova Lite).</span></div>
+            <div class="ir-row"><span class="ir-label ir-outcome">outcome</span><span class="ir-text">Lambda-backed API returns a verdict, risk score, and plain-English explanation — triage in seconds, not a header hunt.</span></div>
+          </div>
           <div class="tag-row">
             <span class="tag">AWS Lambda</span><span class="tag">Bedrock</span><span class="tag">API Gateway</span><span class="tag">Python</span>
           </div>
@@ -1240,7 +1331,11 @@
         </div>
         <div class="proj-body">
           <h3>VirusTotal Hash Lookup Tool</h3>
-          <p>Serverless AWS tool and CLI that checks a file hash against VirusTotal and turns the raw detection count into a plain-English malware category and remediation steps — the verdict an analyst needs, not a wall of engine names. API key stays in Secrets Manager, never in code.</p>
+          <div class="incident-report">
+            <div class="ir-row"><span class="ir-label ir-trigger">trigger</span><span class="ir-text">A file hash needs a verdict fast, and a raw VirusTotal detection count doesn't say what it means.</span></div>
+            <div class="ir-row"><span class="ir-label ir-action">action</span><span class="ir-text">Built a serverless AWS tool and CLI that queries VirusTotal and classifies the result, keeping the API key in Secrets Manager.</span></div>
+            <div class="ir-row"><span class="ir-label ir-outcome">outcome</span><span class="ir-text">Returns a plain-English malware category and remediation steps — the verdict an analyst needs, not a wall of engine names.</span></div>
+          </div>
           <div class="tag-row">
             <span class="tag">AWS Lambda</span><span class="tag">Secrets Manager</span><span class="tag">API Gateway</span><span class="tag">Python</span>
           </div>
@@ -1310,6 +1405,7 @@
     </div>
   </div>
 </section>
+<div class="section-divider only-hacker" aria-hidden="true"><span class="divider-line"></span><span class="divider-mark">connecting → contact.sh</span><span class="divider-line right"></span></div>
 <!-- ============ CONTACT ============ -->
 <section id="contact">
   <div class="wrap">
@@ -1351,9 +1447,13 @@
           <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
           <span class="terminal-title">khalid@portfolio: ~/contact.sh</span>
         </div>
+        <div class="ticket-meta">
+          <span class="ticket-id" id="ticket-id">#TKT-0000</span>
+          <span class="q-status st-new" id="ticket-status">new</span>
+        </div>
         <div class="form-body">
           <div class="field">
-            <label for="name">name</label>
+            <label for="name">reporter</label>
             <input type="text" id="name" name="name" placeholder="Jane Doe" required>
           </div>
           <div class="field">
@@ -1361,14 +1461,29 @@
             <input type="email" id="email" name="email" placeholder="jane@company.com" required>
           </div>
           <div class="field">
-            <label for="message">message</label>
+            <label for="subject">subject</label>
+            <input type="text" id="subject" name="subject" placeholder="e.g. SOC Analyst opening at..." required>
+          </div>
+          <div class="field">
+            <label for="priority">priority</label>
+            <div class="priority-row">
+              <select id="priority" name="priority">
+                <option value="P3" selected>P3 — just reaching out</option>
+                <option value="P2">P2 — worth a quick reply</option>
+                <option value="P1">P1 — time-sensitive</option>
+              </select>
+              <span class="sev-chip sev-p3" id="priority-chip">P3</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="message">details</label>
             <textarea id="message" name="message" placeholder="Let's talk about..." required></textarea>
           </div>
           <div class="form-foot">
             <span class="form-note">// opens your email client</span>
             <button type="submit" class="btn btn-primary">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-              Send Message
+              File Ticket
             </button>
           </div>
         </div>
@@ -1525,6 +1640,7 @@
     });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  document.querySelectorAll('.section-divider').forEach(el => revealObserver.observe(el));
 
   // ---- Copy email ----
   const copyBtn = document.getElementById('copy-email');
@@ -1537,15 +1653,41 @@
     });
   }
 
-  // ---- Contact form -> mailto ----
+  // ---- Contact form -> support ticket -> mailto ----
+  const ticketIdEl = document.getElementById('ticket-id');
+  if (ticketIdEl){
+    const num = String(Math.floor(1000 + Math.random() * 8999));
+    ticketIdEl.textContent = '#TKT-' + num;
+  }
+
+  const prioritySelect = document.getElementById('priority');
+  const priorityChip = document.getElementById('priority-chip');
+  const priorityChipMap = { P1: 'sev-p1', P2: 'sev-p2', P3: 'sev-p3' };
+  if (prioritySelect && priorityChip){
+    prioritySelect.addEventListener('change', function(){
+      const val = this.value;
+      priorityChip.textContent = val;
+      priorityChip.className = 'sev-chip ' + (priorityChipMap[val] || 'sev-p3');
+    });
+  }
+
   const form = document.getElementById('contact-form');
   form.addEventListener('submit', function(e){
     e.preventDefault();
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
+    const subjectField = document.getElementById('subject').value.trim();
+    const priority = document.getElementById('priority').value;
     const message = document.getElementById('message').value.trim();
-    const subject = encodeURIComponent('Portfolio contact from ' + name);
-    const body = encodeURIComponent(message + '\n\n- ' + name + ' (' + email + ')');
+    const ticketId = ticketIdEl ? ticketIdEl.textContent : '';
+
+    const statusEl = document.getElementById('ticket-status');
+    if (statusEl){ statusEl.textContent = 'filed'; statusEl.className = 'q-status st-resolved'; }
+
+    const subject = encodeURIComponent('[' + priority + '] ' + subjectField + ' — ' + ticketId);
+    const body = encodeURIComponent(
+      message + '\n\n---\nTicket: ' + ticketId + '\nPriority: ' + priority + '\nFrom: ' + name + ' (' + email + ')'
+    );
     window.location.href = 'mailto:khalid_abess@outlook.com?subject=' + subject + '&body=' + body;
   });
 
